@@ -51,7 +51,11 @@ export const App = () => {
         active={!showEvents}
         onClick={handleToggle}
       />
-      {showEvents && <Events className={styles.events} onClick={handleClick} />}
+      {showEvents && (
+        <div className={styles.events} data-testid="events">
+          <Events className={styles.events} onClick={handleClick} />
+        </div>
+      )}
     </main>
   );
 };
