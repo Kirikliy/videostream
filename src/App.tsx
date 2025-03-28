@@ -53,7 +53,7 @@ export const App = () => {
       />
       {showEvents && (
         <div className={styles.events} data-testid="events">
-          <Events className={styles.events} onClick={handleClick} />
+          <Events onClick={handleClick} />
         </div>
       )}
     </main>
