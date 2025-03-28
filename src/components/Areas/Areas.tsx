@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import { Props } from "./types";
 import { useSelector } from "~/store/utils";
-import * as styles from "./Areas.module.scss";
+import Area from "~/components/Area";
 
 export const Areas = ({ time }: Props) => {
   const events = useSelector((store) => store.events.data);
@@ -13,14 +13,7 @@ export const Areas = ({ time }: Props) => {
     [time, events]
   );
 
-  return eventsToRender.map((e) => (
-    <div
-      className={styles.area}
-      key={e.timestamp}
-      style={e.zone}
-      data-testid={`area-${e.timestamp}`}
-    />
-  ));
+  return eventsToRender.map((e) => <Area event={e} key={e.timestamp} />);
 };
 
 export default memo(Areas);
