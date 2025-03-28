@@ -1,0 +1,39 @@
+{
+	"compilerOptions": {
+		"checkJs": false,
+		"allowSyntheticDefaultImports": true,
+		"declaration": true,
+		"lib": [
+			"es5",
+			"es6",
+			"dom",
+			"esnext",
+			"dom.iterable"
+		],
+		"jsx": "react-jsx",
+		"outDir": "./dist/",
+		"esModuleInterop": true,
+		"noImplicitAny": false,
+		"resolveJsonModule": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"paths": {
+			"~/*": ["./src/*"]
+		},
+		"plugins": [
+			{
+				"exclude": [ "**/node_modules/**" ],
+				"transform": "typescript-transform-paths",
+				"afterDeclarations": true
+			},
+		],
+		"strictNullChecks": true,
+		"target": "es6",
+		"allowJs": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"types": ["node", "jest", "@testing-library/jest-dom"]
+	},
+	"include": ["src/**/*"]
+}
