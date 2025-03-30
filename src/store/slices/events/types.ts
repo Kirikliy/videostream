@@ -1,8 +1,8 @@
 export type Zone = {
   left: number;
   top: number;
-  right: number;
-  bottom: number;
+  width: number;
+  height: number;
 };
 
 export type Event = {

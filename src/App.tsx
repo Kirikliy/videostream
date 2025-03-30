@@ -7,12 +7,14 @@ import * as styles from "./App.module.scss";
 import Areas from "~/components/Areas";
 import ToggleButton from "~/components/ToggleButton";
 import { CONFIG } from "~/constants";
+import { Ratios } from "~/types";
 
 export const App = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const [time, setTime] = useState(0);
   const [showEvents, setShowEvents] = useState(true);
+  const [ratios, setRatios] = useState<Ratios | null>(null);
 
   useEffect(() => {
     /**
@@ -30,6 +32,26 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(getEventsStart());
+
+    const callback = () => {
+      if (!videoRef.current) return;
+
+      const { videoHeight, videoWidth, clientHeight, clientWidth } =
+        videoRef.current;
+
+      setRatios({
+        width: clientWidth / videoWidth,
+        height: clientHeight / videoHeight,
+      });
+    };
+
+    videoRef.current?.addEventListener("canplay", callback);
+    window.addEventListener("resize", callback);
+
+    return () => {
+      videoRef.current?.removeEventListener("canplay", callback);
+      window.removeEventListener("resize", callback);
+    };
   }, []);
 
   const handleClick = useCallback((item: Event) => {
@@ -45,7 +67,7 @@ export const App = () => {
   return (
     <main className={styles.main}>
       <Video ref={videoRef} src={CONFIG.videoUrl} />
-      <Areas time={time} />
+      {ratios && <Areas time={time} ratios={ratios} />}
       <ToggleButton
         className={styles.toggleButton}
         active={!showEvents}
